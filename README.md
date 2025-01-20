@@ -25,7 +25,7 @@ Preview [demo](https://jaywcjlove.github.io/react-hotkeys/).
 
 ```js
 import React from 'react';
-import Hotkeys from 'hotkeys-react';
+import { Hotkeys } from 'hotkeys-react';
 
 export function HotkeysDemo() {
   const [output, setOutput] = useState("Hello, I am a component that listens keydown and keyup of a")
