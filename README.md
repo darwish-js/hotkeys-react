@@ -3,7 +3,7 @@ hotkeys-react
 [![npm package](https://img.shields.io/npm/v/hotkeys-react.svg)](https://www.npmjs.org/package/hotkeys-react)
 
 ## 说明
-本仓库由`https://github.com/jaywcjlove/react-hotkeys`(https://github.com/jaywcjlove/react-hotkeys)改进而来，因为原来仓库在react19.0会存在类型问题。由此我想重新改写一遍。
+本仓库由[`https://github.com/jaywcjlove/react-hotkeys`](https://github.com/jaywcjlove/react-hotkeys)改进而来，因为原来仓库在react19.0会存在类型问题。由此我想重新改写一遍。
 
 <!--dividing-->
 
