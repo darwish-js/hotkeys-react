@@ -7,7 +7,8 @@ export type OnKeyFunc = (
   handler: HotkeysEvent
 ) => void;
 
-export interface HotkeysProps {
+export interface HotkeysProps<T extends React.ElementType>
+  extends Omit<React.AnchorHTMLAttributes<T>, "onKeyDown" | "onKeyUp"> {
   keyName: string;
   filter?: (event: KeyboardEvent) => boolean;
   onKeyUp?: OnKeyFunc;
@@ -16,12 +17,10 @@ export interface HotkeysProps {
   allowRepeat?: boolean;
   disabled?: boolean;
   splitKey?: string;
-  as?: React.ElementType;
+  as?: T;
 }
 
-export const Hotkeys: React.FC<React.PropsWithChildren<HotkeysProps>> = (
-  props
-) => {
+export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
   const {
     as = "div",
     children,
@@ -80,7 +79,11 @@ export const Hotkeys: React.FC<React.PropsWithChildren<HotkeysProps>> = (
     const handleKeyUp = (e: KeyboardEvent) => {
       if (!isKeyDown.current) return;
       isKeyDown.current = false;
-      if (keyName && keyName.indexOf(handle.current.shortcut ?? "") < 0) return;
+      if (
+        (keyName && keyName.indexOf(handle.current.shortcut ?? "") < 0) ||
+        Object.keys(handle.current).length <= 0
+      )
+        return;
       onKeyUp(e, handle.current);
     };
 
@@ -101,4 +104,4 @@ export const Hotkeys: React.FC<React.PropsWithChildren<HotkeysProps>> = (
   }, []);
 
   return Component;
-};
+}
