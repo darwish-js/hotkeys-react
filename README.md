@@ -2,6 +2,9 @@ hotkeys-react
 ===
 [![npm package](https://img.shields.io/npm/v/hotkeys-react.svg)](https://www.npmjs.org/package/hotkeys-react)
 
+## 说明
+本仓库由`https://github.com/jaywcjlove/react-hotkeys`(https://github.com/jaywcjlove/react-hotkeys)改进而来，因为原来仓库在react19.0会存在类型问题。由此我想重新改写一遍。
+
 <!--dividing-->
 
 React component to listen to keydown and keyup keyboard events, defining and  dispatching keyboard shortcuts. Uses a fork of [hotkeys.js](https://github.com/jaywcjlove/hotkeys) for keydown detection of special characters. You give it a keymap of shortcuts & it bind it to the mousetrap singleton. The, it'll unbind it when the component unmounts.
