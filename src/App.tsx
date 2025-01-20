@@ -9,7 +9,6 @@ function App() {
         keyName="ctrl+a"
         onKeyDown={() => console.log("ctrl+a onKeyDown")}
         onKeyUp={() => console.log("ctrl+a onKeyUp")}
-        onKeyRepeat={() => console.log("ctrl+a onKeyRepeat")}
       >
         ctrl+a
       </Hotkeys>

@@ -13,7 +13,6 @@ export interface HotkeysProps<T extends React.ElementType>
   filter?: (event: KeyboardEvent) => boolean;
   onKeyUp?: OnKeyFunc;
   onKeyDown?: OnKeyFunc;
-  onKeyRepeat?: OnKeyFunc;
   allowRepeat?: boolean;
   disabled?: boolean;
   splitKey?: string;
@@ -24,6 +23,12 @@ export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
   const {
     as = "div",
     children,
+    allowRepeat = false,
+    splitKey,
+    onKeyDown: onKeyDownFunc,
+    onKeyUp: onKeyUpFunc,
+    disabled,
+    keyName,
     filter = (e: KeyboardEvent) => {
       const target = (e.target as HTMLElement) || e.srcElement;
       const tagName = target.tagName;
@@ -34,6 +39,7 @@ export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
         tagName === "TEXTAREA"
       );
     },
+    ...rest
   } = props;
 
   const isKeyDown = useRef(false);
@@ -41,17 +47,15 @@ export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
 
   const onKeyUp = useCallback(
     (e: KeyboardEvent, handler: HotkeysEvent) => {
-      const { onKeyUp: onKeyUpFunc, disabled } = props;
       if (!disabled && onKeyUpFunc) {
         onKeyUpFunc(handle.current.shortcut, e, handler);
       }
     },
-    [props]
+    [disabled, onKeyUpFunc]
   );
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent, handler: HotkeysEvent) => {
-      const { onKeyDown: onKeyDownFunc, allowRepeat, disabled } = props;
       if (isKeyDown.current && !allowRepeat) return;
       isKeyDown.current = true;
       handle.current = handler;
@@ -59,7 +63,7 @@ export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
         onKeyDownFunc(handle.current.shortcut, e, handler);
       }
     },
-    [props]
+    [allowRepeat, disabled, onKeyDownFunc]
   );
 
   const Component = useMemo(
@@ -69,10 +73,11 @@ export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
         {
           onKeyUp,
           onKeyDown,
+          ...rest,
         },
         children
       ),
-    [as, children, onKeyDown, onKeyUp]
+    [as, children, onKeyDown, onKeyUp, rest]
   );
 
   useEffect(() => {
@@ -87,7 +92,6 @@ export function Hotkeys<T extends React.ElementType>(props: HotkeysProps<T>) {
       onKeyUp(e, handle.current);
     };
 
-    const { splitKey, keyName } = props;
     if (filter) {
       HotKeys.filter = filter;
     }
