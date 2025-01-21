@@ -1,8 +1,8 @@
 {
   "name": "hotkeys-react",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
-  "main": "./dist/usehotkeys.js",
+  "main": "./dist/hotkeys-react.js",
   "types": "./dist/main.d.ts",
   "scripts": {
     "dev": "vite",
